@@ -1,0 +1,55 @@
+--- a/Makefile.in	2008-02-08 04:57:36.315124000 -0500
++++ b/Makefile.in	2013-04-09 04:29:29.400500321 -0400
+@@ -148,7 +148,7 @@
+ Makefile: config.status Makefile.in
+ 	./config.status
+ makefile.dep: $(TOOL_D)/depbuild Makefile
+-	$(TOOL_D)/depbuild @CC@ "@CFLAGS@" @NASMPATH@ "@NFLAGS@" $(Z_OBJS) > makefile.dep
++	$(TOOL_D)/depbuild "@CC@" "@CFLAGS@" "@NASMPATH@" "@NFLAGS@" $(Z_OBJS) > makefile.dep
+ 
+ # set ${prefix} so mandir works.
+ prefix=@prefix@
+--- a/parsegen.cpp	2007-10-31 05:30:26.000000000 +0100
++++ b/parsegen.cpp	2010-09-05 15:48:36.903333444 +0200
+@@ -19,6 +19,9 @@
+ Config file handler creator by Nach (C) 2005-2007
+ */
+ 
++#include <cstring>
++#include <cstdlib>
++
+ #if !defined(__GNUC__) && !defined(_MSC_VER)
+ #error You are using an unsupported compiler
+ #endif
+@@ -1822,7 +1825,7 @@
+   }
+ }
+ 
+-int main(size_t argc, const char *const *const argv)
++int main(int argc, const char *const *const argv)
+ {
+   const char *cheader_file = 0;
+   bool compile = false;
+--- a/tools/depbuild.cpp	2006-12-27 12:04:05.000000000 +0100
++++ b/tools/depbuild.cpp	2010-09-05 15:48:36.903333444 +0200
+@@ -209,7 +209,7 @@
+   }
+ }
+ 
+-int main(size_t argc, const char *const *const argv)
++int main(int argc, const char *const *const argv)
+ {
+   if (argc < 5)
+   {
+--- a/tools/strutil.h	2006-12-27 12:04:05.000000000 +0100
++++ b/tools/strutil.h	2010-09-05 15:48:36.903333444 +0200
+@@ -15,6 +15,9 @@
+ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+ 
++#include <cstring>
++#include <cstdlib>
++
+ /*
+ This is part of a toolkit used to assist in ZSNES development
+ */
